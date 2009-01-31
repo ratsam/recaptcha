@@ -1,7 +1,7 @@
 from django import template
 from django.conf import settings
 from django.utils.safestring import mark_safe
-from inetss.django.apps.recaptcha.librecaptcha import displayhtml
+from recaptcha.librecaptcha import displayhtml
 
 register = template.Library()
 
