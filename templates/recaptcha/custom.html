@@ -1,0 +1,46 @@
+{% load i18n %}
+
+<div id="recaptcha_custom_widget">
+
+	<div id="recaptcha_image"></div>
+	
+	<div class="recaptcha_only_if_incorrect_sol" style="color:red">
+		{% trans "Incorrect please try again" %}
+	</div>
+	
+	<span class="recaptcha_only_if_image">
+		{% trans "Enter the words above:" %}
+	</span>
+	
+	<span class="recaptcha_only_if_audio">
+		{% trans "Enter the numbers you hear:" %}
+	</span>
+	
+	<input type="text" id="recaptcha_response_field" name="recaptcha_response_field" />
+	
+	<div>
+		<a href="javascript:Recaptcha.reload()">
+			{% trans "Get another CAPTCHA" %}
+		</a>
+	</div>
+	
+	<div class="recaptcha_only_if_image">
+		<a href="javascript:Recaptcha.switch_type('audio')">
+			{% trans "Get an audio CAPTCHA" %}
+		</a>
+	</div>
+	
+	<div class="recaptcha_only_if_audio">
+		<a href="javascript:Recaptcha.switch_type('image')">
+			{% trans "Get an image CAPTCHA" %}
+		</a>
+	</div>
+	
+	<div>
+		<a href="javascript:Recaptcha.showhelp()">
+			{% trans "Help" %}
+		</a>
+	</div>
+</div>
+
+{{ rendered_scripts }}
