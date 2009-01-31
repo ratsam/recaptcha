@@ -2,7 +2,8 @@ from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
-from inetss.django.utils import obtain_request
+
+from utils import obtain_request
 from librecaptcha import displayhtml, submit
 
 RECAPTCHA_LANG = getattr(settings, 'LANGUAGE_CODE', 'en')
