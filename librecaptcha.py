@@ -19,7 +19,7 @@ if 'recaptcha' not in settings.INSTALLED_APPS:
         get_template('recaptcha/custom.html')
     except TemplateDoesNotExist:
         from warnings import warn
-        warn('Please insert \'recaptcha\' in your INSTALLED_APPS or \n copy \'custom.html\' to TEMPLATE_DIRS + \'recaptcha/\'')
+        warn('If you are using custom reCAPTCHA theme, please insert \'recaptcha\' in your INSTALLED_APPS or \n copy \'custom.html\' to TEMPLATE_DIRS + \'recaptcha/\'')
 
 class RecaptchaResponse(object):
     def __init__(self, is_valid, error_code=None):
@@ -80,8 +80,6 @@ def displayhtml (public_key, use_ssl=False, error=None,
                 'tabindex'           : tabindex,
                 'custom_theme_widget': custom_theme_widget }
     
-    
-    
     if theme == 'custom':
         html = mark_safe(html)
         html = render_to_string(template_name, context_instance=Context({'rendered_scripts':html}))
@@ -104,8 +102,6 @@ def submit (recaptcha_challenge_field,
     if not (recaptcha_response_field and recaptcha_challenge_field and
             len (recaptcha_response_field) and len (recaptcha_challenge_field)):
         return RecaptchaResponse (is_valid = False, error_code = 'incorrect-captcha-sol')
-    
-    
     
     params = urllib.urlencode ({
         'privatekey': private_key,

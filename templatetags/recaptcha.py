@@ -16,7 +16,7 @@ def recaptcha(parser, token):
                 raise template.TemplateSyntaxError, "%r tag requires template name if using custom theme" % tag_name
             return RecaptchaNode(theme)
         except ValueError:
-            raise template.TemplateSyntaxError, "%r tag requires a theme as arguments" % token.contents.split()[0]
+            raise template.TemplateSyntaxError, "%r tag requires a theme as argument" % token.contents.split()[0]
     
     return RecaptchaNode(theme, template_name)
 
