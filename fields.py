@@ -23,7 +23,13 @@ ERROR_CODES = {
 class RecaptchaWidget(forms.Widget):
 
     def render(self, name, value, attrs=None):
-        html = displayhtml(settings.RECAPTCHA_PUBLIC_KEY,
+        if isinstance(settings.RECAPTCHA_PUBLIC_KEY, dict):
+            request = obtain_request()
+            public_key = settings.RECAPTCHA_PUBLIC_KEY[request.get_host()]
+        else:
+            public_key = settings.RECAPTCHA_PUBLIC_KEY
+        
+        html = displayhtml(public_key,
                            theme=RECAPTCHA_THEME,
                            lang=RECAPTCHA_LANG)
         return mark_safe(html)
@@ -50,7 +56,13 @@ class RecaptchaField(forms.Field):
         
         remote_ip = obtain_request().META['REMOTE_ADDR'];
         
-        rc = submit(challenge, response, settings.RECAPTCHA_PRIVATE_KEY, remote_ip)
+        if isinstance(settings.RECAPTCHA_PRIVATE_KEY, dict):
+            request = obtain_request()
+            private_key = settings.RECAPTCHA_PRIVATE_KEY[request.get_host()]
+        else:
+            private_key = settings.RECAPTCHA_PRIVATE_KEY
+        
+        rc = submit(challenge, response, private_key, remote_ip)
         if not rc.is_valid:
             msg = ERROR_CODES.get(rc.error_code, ERROR_CODES['unknown'])
             raise forms.ValidationError(msg)
