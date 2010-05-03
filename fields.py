@@ -25,7 +25,7 @@ class RecaptchaWidget(forms.Widget):
     def render(self, name, value, attrs=None):
         if isinstance(settings.RECAPTCHA_PUBLIC_KEY, dict):
             request = obtain_request()
-            public_key = settings.RECAPTCHA_PUBLIC_KEY[request.get_host()]
+            public_key = settings.RECAPTCHA_PUBLIC_KEY[request.get_host().lower()]
         else:
             public_key = settings.RECAPTCHA_PUBLIC_KEY
         
@@ -58,7 +58,7 @@ class RecaptchaField(forms.Field):
         
         if isinstance(settings.RECAPTCHA_PRIVATE_KEY, dict):
             request = obtain_request()
-            private_key = settings.RECAPTCHA_PRIVATE_KEY[request.get_host()]
+            private_key = settings.RECAPTCHA_PRIVATE_KEY[request.get_host().lower()]
         else:
             private_key = settings.RECAPTCHA_PRIVATE_KEY
         
